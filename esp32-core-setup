@@ -1,8 +1,0 @@
-#!/bin/bash
-
-cd ~ 
-
-# Install esp32 core
-printf "board_manager:\n  additional_urls:\n    - https://dl.espressif.com/dl/package_esp32_index.json\n" > .arduino-cli.yaml
-arduino-cli core update-index --config-file .arduino-cli.yaml
-arduino-cli core install esp32:esp32 --config-file .arduino-cli.yaml

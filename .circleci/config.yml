@@ -23,4 +23,4 @@ workflows:
           image: rnavt/esp32builder
           context: docker_hub
           docker-context: .
-          tag: ${CIRCLE_SHA1:0:7},$CIRCLE_BRANCH
+          tag: << pipeline.parameters.esp-builder-tools-version >>-${CIRCLE_SHA1:0:7},<< pipeline.parameters.esp-builder-tools-version >>-$CIRCLE_BRANCH

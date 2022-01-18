@@ -1,0 +1,26 @@
+version: 2.1
+parameters:
+  esp-builder-tools-version:
+    type: string
+    default: "0.0.1"
+orbs:
+  docker: circleci/docker@2.0.1
+jobs:
+  lint:
+    executor: docker/machine
+    steps:
+      - checkout
+      - docker/dockerlint:
+          dockerfile: Dockerfile
+          treat-warnings-as-errors: true
+workflows:
+  version: 2
+  publish:
+    jobs:
+      - lint
+      - docker/publish:
+          name: build-and-publish
+          image: rnavt/esp32builder
+          context: docker_hub
+          docker-context: .
+          tag: << pipeline.parameters.esp-builder-tools-version >>-${CIRCLE_SHA1:0:7},<< pipeline.parameters.esp-builder-tools-version >>-$CIRCLE_BRANCH
